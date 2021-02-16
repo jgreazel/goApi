@@ -13,6 +13,7 @@ import (
 )
 
 // Book struct (model)
+// note: structs are like classes, *points to another struct, go is statically typed
 type Book struct {
 	ID     string  `json:"id"`
 	Isbn   string  `json:"isbn"`
@@ -27,9 +28,11 @@ type Author struct {
 }
 
 // init books var as a slice Book struct
+// note: slices are like lists in java, declare them like []<type>
 var books []Book
 
 // get all books
+// note: api methods utilize net/http
 func getBooks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(books)
@@ -69,6 +72,7 @@ func main() {
 	router := mux.NewRouter()
 
 	//mock data
+	//note: &<type> similar to C pointers
 	books = append(books, Book{
 		ID: "1", Isbn: "52634", Title: "Harry Potter", Author: &Author{
 			Firstname: "J.K.", Lastname: "Rowling"}})
